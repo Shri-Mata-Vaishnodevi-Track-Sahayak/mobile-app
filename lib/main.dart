@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'geolocater_demo.dart';
+import 'toilets.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,57 +31,51 @@ class _MyHomePageState extends State<MyHomePage> {
             ListTile(
               title: const Text('Home Page'),
               onTap: () {
-                _navigateToPage(0);
+                _navigateToPage(1, context);
               },
             ),
             ListTile(
               title: const Text('Geolocater Demo'),
               onTap: () {
-                _navigateToPage(1);
+                _navigateToPage(2, context);
+              },
+            ),
+            ListTile(
+              title: const Text('Toilets'),
+              onTap: () {
+                _navigateToPage(3, context);
               },
             ),
           ],
         ),
       ),
-      body: Column(
+      body: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
+          Text(
             '18.2 km to bhawan',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 24,
             ),
             textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 20),
-          const Text(
-            '18.2 km to bhawan',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 24,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              _navigateToGeolocatorPage(context);
-            },
-            child: const Text('Go to geo locater'),
-          ),
+          )
         ],
       ),
     );
   }
 
-  void _navigateToPage(int pageIndex) {
-    Navigator.pop(context); // Close the drawer after navigation
-  }
-
-  void _navigateToGeolocatorPage(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) =>
-            MyGeolocationWidget())); // Close the drawer after navigation
+  void _navigateToPage(int pageIndex, BuildContext context) {
+    if (pageIndex == 1) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              MyHomePage())); // Close the drawer after navigation
+    } else if (pageIndex == 2) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => MyGeolocationWidget()));
+    } else {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => ToiletWidget()));
+    }
   }
 }

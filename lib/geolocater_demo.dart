@@ -8,7 +8,7 @@ class MyGeolocationWidget extends StatefulWidget {
 
 
 class _MyGeolocationWidgetState extends State<MyGeolocationWidget> {
-  late Position _currentPosition;
+  Position? _currentPosition;
 
   @override
   void initState() {
@@ -79,9 +79,9 @@ class _MyGeolocationWidgetState extends State<MyGeolocationWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (_currentPosition != null)
-              Text('Latitude: ${_currentPosition.latitude}'),
+              Text('Latitude: ${_currentPosition?.latitude}'),
             if (_currentPosition != null)
-              Text('Longitude: ${_currentPosition.longitude}'),
+              Text('Longitude: ${_currentPosition?.longitude}'),
             ElevatedButton(
               onPressed: _determinePosition,
               child: const Text('Get Location'),
