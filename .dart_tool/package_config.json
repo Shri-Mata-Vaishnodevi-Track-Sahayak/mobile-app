@@ -92,6 +92,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "json_annotation",
+      "rootUri": "file:///C:/Users/sg604/AppData/Local/Pub/Cache/hosted/pub.dev/json_annotation-4.8.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "lints",
       "rootUri": "file:///C:/Users/sg604/AppData/Local/Pub/Cache/hosted/pub.dev/lints-2.1.1",
       "packageUri": "lib/",
@@ -188,7 +194,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-12-29T12:39:17.660175Z",
+  "generated": "2023-12-29T15:47:51.967548Z",
   "generator": "pub",
   "generatorVersion": "3.2.3"
 }

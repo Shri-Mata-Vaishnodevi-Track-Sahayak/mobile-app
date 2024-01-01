@@ -9,6 +9,7 @@ class ToiletWidget extends StatefulWidget {
 
 class _ToiletWidgetState extends State<ToiletWidget> {
   int toiletCounts = 0;
+  List<dynamic> toiletList = [];
 
   @override
   void initState() {
@@ -17,7 +18,6 @@ class _ToiletWidgetState extends State<ToiletWidget> {
   }
 
   Future<List<dynamic>> loadJsonAsset() async {
-    print("1st");
     final String jsonString = await rootBundle.loadString('assets/data.json');
     final jsonData = jsonDecode(jsonString);
     return jsonData;
@@ -26,10 +26,11 @@ class _ToiletWidgetState extends State<ToiletWidget> {
   Future<void> _countToilets() async {
     try {
       final data = await loadJsonAsset();
+      List filtered = data.where((item) => item['type'].contains('T')).toList();
       setState(() {
-        toiletCounts = 5;
+        toiletCounts = filtered.length;
+        toiletList = filtered;
       });
-      print(data);
     } catch (e) {
       print(e);
     }
@@ -37,18 +38,31 @@ class _ToiletWidgetState extends State<ToiletWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Toilets'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Total toilets count: $toiletCounts'),
-          ],
-        ),
-      ),
-    );
+    return toiletList == []
+        ? const Center(child: CircularProgressIndicator())
+        : Scaffold(
+            appBar: AppBar(
+              title: const Text('Toilets'),
+            ),
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Total toilets count: $toiletCounts'),
+                  Expanded(
+                      child: ListView.builder(
+                          itemCount: toiletList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return ListTile(
+                              title: Text(
+                                  "Latitude: ${toiletList[index]["latitude"]}"),
+                              subtitle: Text(
+                                  "Longitude: ${toiletList[index]["longitude"]}"),
+                            );
+                          })),
+                ],
+              ),
+            ),
+          );
   }
 }
